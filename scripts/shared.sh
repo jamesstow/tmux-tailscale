@@ -29,7 +29,7 @@ tailscale_bin(){
 }
 
 current_status(){
-    local ts=$(tailscale_bin $HOME/go/bin/tailscale /Applications/Tailscale.app/Contents/MacOS/Tailscale)
+    local ts=$(tailscale_bin /usr/local/bin/tailscale $HOME/go/bin/tailscale /Applications/Tailscale.app/Contents/MacOS/Tailscale)
     "$ts" status --json | jq -r 'if .BackendState == "Running" then if .Self.Online then "Online" else "Offline" end else .BackendState end'
 }
 
