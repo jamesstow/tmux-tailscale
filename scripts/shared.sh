@@ -48,6 +48,19 @@ print_icon(){
     echo "$icon"
 }
 
+exit_node(){
+    local ts=$(tailscale_bin /usr/local/bin/tailscale $HOME/go/bin/tailscale /Applications/Tailscale.app/Contents/MacOS/Tailscale)
+    status=$("$ts" status --json)
+    id=$(echo "$status" | jq -r '.ExitNodeStatus.ID')
+    online=$(echo "$status" | jq -r '.ExitNodeStatus.Online')
+    if [[ "$online" == "true" ]]; then
+        node=$(echo $status | jq -r ".Peer | to_entries | map(.value | select(.ID == \"$id\"))[0].HostName")
+        echo "[$node]"
+        return 0
+    fi
+    echo ""
+}
+
 print_status_icon(){
     local status=""
     if [ "$#" == 0 ]; then

@@ -11,6 +11,8 @@ status_text="#($CURRENT_DIR/scripts/tailscale_status_text.sh)"
 status_text_interpolation="\#{tailscale_status}"
 status_tailnet="#($CURRENT_DIR/scripts/tailscale_status_tailnet.sh)"
 status_tailnet_interpolation="\#{tailscale_tailnet}"
+status_exitnode="#($CURRENT_DIR/scripts/tailscale_status_exitnode.sh)"
+status_exitnode_interpolation="\#{tailscale_exitnode}"
 
 show_tailscale(){
     local index=$1
@@ -29,6 +31,7 @@ do_interpolation(){
 	result=${result/$status_text_interpolation/$status_text}
 	result=${result/$status_tailnet_interpolation/$status_tailnet}
 	result=${result/$icon_interpolation/$icon}
+	result=${result/$status_exitnode_interpolation/$status_exitnode}
 
 	echo "$result"
 }
