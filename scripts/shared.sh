@@ -33,6 +33,11 @@ current_status(){
     "$ts" status --json | jq -r 'if .BackendState == "Running" then if .Self.Online then "Online" else "Offline" end else .BackendState end'
 }
 
+current_tailnet(){
+    local ts=$(tailscale_bin /usr/local/bin/tailscale $HOME/go/bin/tailscale /Applications/Tailscale.app/Contents/MacOS/Tailscale)
+    "$ts" status --json | jq -r '.CurrentTailnet.Name'
+}
+
 print_icon(){
     local status=""
     if [ "$#" == 0 ]; then
