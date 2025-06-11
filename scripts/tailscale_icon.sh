@@ -6,6 +6,6 @@ source $CURRENT_DIR/shared.sh
 
 
 main(){
-    print_status_icon
+    print_icon
 }
 main

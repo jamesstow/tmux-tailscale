@@ -3,7 +3,8 @@
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$CURRENT_DIR/scripts/shared.sh"
 
-
+icon="#($CURRENT_DIR/scripts/tailscale_icon.sh)"
+icon_interpolation="\#{tailscale_icon}"
 status_icon="#($CURRENT_DIR/scripts/tailscale_status_icon.sh)"
 status_icon_interpolation="\#{tailscale_status_icon}"
 status_text="#($CURRENT_DIR/scripts/tailscale_status_text.sh)"
@@ -26,7 +27,8 @@ do_interpolation(){
 
 	result=${input/$status_icon_interpolation/$status_icon}
 	result=${result/$status_text_interpolation/$status_text}
-        result=${result/$status_tailnet_interpolation/$status_tailnet}
+	result=${result/$status_tailnet_interpolation/$status_tailnet}
+	result=${result/$icon_interpolation/$icon}
 
 	echo "$result"
 }
